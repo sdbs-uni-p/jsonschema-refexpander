@@ -2,9 +2,9 @@
   "title": "1: No recursive schema with ref to other file",
   "definitions": {
     "A": {
-      "$ref": "#/definitions/other.json_definitions_A"
+      "$ref": "#/definitions/other_json_definitions_A"
     },
-    "other.json_definitions_A": {
+    "other_json_definitions_A": {
       "type": "string"
     }
   },

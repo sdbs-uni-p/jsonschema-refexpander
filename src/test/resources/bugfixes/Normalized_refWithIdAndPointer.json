@@ -1,14 +1,14 @@
 {
   "definitions": {
     "a": {
-      "$ref": "#/definitions/b.json_a"
+      "$ref": "#/definitions/b_json_a"
     },
     "b": {
       "a": {
         "type": "string"
       }
     },
-    "b.json_a": {
+    "b_json_a": {
       "type": "string"
     }
   },

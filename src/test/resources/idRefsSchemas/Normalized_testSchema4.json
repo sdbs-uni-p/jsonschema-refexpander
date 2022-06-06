@@ -3,17 +3,17 @@
   "id": "https://raw.githubusercontent.com/lukasellinger/json-schema-recursion/main/src/test/resources/onlineRefs/test.json",
   "definitions": {
     "A": {
-      "$ref": "#/definitions/other3.json"
+      "$ref": "#/definitions/other3_json"
     },
-    "other3.json": {
+    "other3_json": {
       "definitions": {
         "A": {
           "type": "string"
         }
       },
-      "$ref": "#/definitions/other3.json_definitions_A"
+      "$ref": "#/definitions/other3_json_definitions_A"
     },
-    "other3.json_definitions_A": {
+    "other3_json_definitions_A": {
       "type": "string"
     }
   },

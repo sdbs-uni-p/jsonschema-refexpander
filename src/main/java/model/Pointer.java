@@ -85,8 +85,7 @@ public class Pointer {
    * Converts a pointer to its name as it should be stored in definitions. Therefore it discards
    * "#/definitions/" if it starts with it. "#/" is always removed at the beginning. If ref is to an
    * id, "id_" is added to the beginning. Afterwards all '/' are replaced with '_'.
-   * 
-   * @param pointer to be converted.
+   *
    * @return name as it should be stored in definitions.
    */
   public String convertPointer() {
@@ -103,7 +102,7 @@ public class Pointer {
           convertedRef = "id_" + ref;
         }
       }
-      convertedRef = convertedRef.replace('/', '_');
+      convertedRef = convertedRef.replace('/', '_').replace(".", "_");
       convertedRef = convertedRef.replace('#', '_');
 
       return convertedRef;

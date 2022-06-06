@@ -11,7 +11,7 @@
     "real_id_in_schema": {
       "type": "string"
     },
-    "id_https:__localhost:1234_my_identifier.json": {
+    "id_https:__localhost:1234_my_identifier_json": {
       "type": "string"
     }
   },
@@ -20,7 +20,7 @@
       "$ref": "#/definitions/id_in_enum"
     },
     {
-      "$ref": "#/definitions/id_https:__localhost:1234_my_identifier.json"
+      "$ref": "#/definitions/id_https:__localhost:1234_my_identifier_json"
     }
   ]
 }

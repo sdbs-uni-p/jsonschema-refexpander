@@ -97,7 +97,7 @@ public class FilePointer extends Pointer {
       }
     }
 
-    convertedRef = convertedRef.replace("/", "_");
+    convertedRef = convertedRef.replace("/", "_").replace(".", "_");
     return convertedRef;
   }
 
@@ -124,7 +124,7 @@ public class FilePointer extends Pointer {
       String pointer = ref.substring(ref.indexOf("#/"));
 
       ref = pointer;
-      return relId + "_" + super.convertPointer();
+      return relId.replace(".", "_") + "_" + super.convertPointer();
     }
   }
 

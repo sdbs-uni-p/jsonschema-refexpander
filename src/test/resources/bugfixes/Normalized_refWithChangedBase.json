@@ -2,14 +2,14 @@
   "id": "http://localhost:1234/",
   "items": {
     "items": {
-      "$ref": "#/definitions/id_baseUriChange_integer.json"
+      "$ref": "#/definitions/id_baseUriChange_integer_json"
     }
   },
   "a": {
     "type": "integer"
   },
   "definitions": {
-    "id_baseUriChange_integer.json": {
+    "id_baseUriChange_integer_json": {
       "type": "integer"
     }
   }

@@ -5,11 +5,11 @@
       "type": "integer"
     },
     "test": {
-      "$ref": "#/definitions/id_a.json"
+      "$ref": "#/definitions/id_a_json"
     }
   },
   "definitions": {
-    "id_a.json": {
+    "id_a_json": {
       "type": "integer"
     }
   }

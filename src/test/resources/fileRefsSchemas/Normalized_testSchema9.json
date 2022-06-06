@@ -2,21 +2,21 @@
   "title": "9: Guarded recursive schema with four references",
   "properties": {
     "A": {
-      "$ref": "#/definitions/other3.json_properties_B"
+      "$ref": "#/definitions/other3_json_properties_B"
     }
   },
   "$ref": "#/definitions/properties_A",
   "definitions": {
-    "other3.json_properties_B": {
+    "other3_json_properties_B": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/other4.json_properties_C"
+        "$ref": "#/definitions/other4_json_properties_C"
       }
     },
-    "other4.json_properties_C": {
+    "other4_json_properties_C": {
       "anyOf": [
         {
-          "$ref": "#/definitions/other3.json_properties_B"
+          "$ref": "#/definitions/other3_json_properties_B"
         },
         {
           "type": "array",
@@ -27,7 +27,7 @@
       ]
     },
     "properties_A": {
-      "$ref": "#/definitions/other3.json_properties_B"
+      "$ref": "#/definitions/other3_json_properties_B"
     }
   }
 }
