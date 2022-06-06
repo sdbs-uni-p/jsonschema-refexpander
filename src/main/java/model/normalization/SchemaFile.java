@@ -221,8 +221,10 @@ public class SchemaFile {
     if (!rootScheme.equals(idScheme) || !rootAuthority.equals(idAuthority)) {
       return id.toString();
     } else {
+      URI parent = URIUtil.getParentURI(store.getRoot());
+      String path = rootScheme.orElseThrow().equals("file") ? Paths.get(parent).toString() : parent.getPath();
       Optional<Path> rootPath =
-          Optional.ofNullable(Paths.get(URIUtil.getParentURI(store.getRoot()).getPath()));
+          Optional.ofNullable(Paths.get(path));
       Path idPath = new File(id.getPath()).toPath();
       if (rootPath.isEmpty()) {
         return FilenameUtils.separatorsToUnix(idPath.toString().substring(1));
@@ -268,7 +270,7 @@ public class SchemaFile {
    * the <code>store</code>, then the stored one is returned. Otherwise the new
    * <code>SchemaFile</code> is added to the <code>store</coded> and returned.
    * 
-   * @param file of which the <code>SchemaFile</code> should be returned.
+   * @param identifier of which the <code>SchemaFile</code> should be returned.
    * 
    * @return <code>SchemaFile</code> of <code>file</code>. If the corresponding is already stored in
    *         the <code>store</code>, then the stored one is returned

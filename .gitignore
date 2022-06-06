@@ -40,6 +40,10 @@ local.properties
 .settings/
 .loadpath
 
+# IntelliJ
+.idea/
+*.iml
+
 #own
 currentSchema/
 JSON/

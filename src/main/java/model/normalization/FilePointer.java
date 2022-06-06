@@ -108,8 +108,9 @@ public class FilePointer extends Pointer {
    * @return converted pointer.
    */
   private String convertPointerToIdAndRef() {
+    String path = Paths.get(URIUtil.getParentURI(schema.getRoot())).toString();
     Optional<Path> rootPath =
-        Optional.ofNullable(Paths.get(URIUtil.getParentURI(schema.getRoot()).getPath()));
+        Optional.ofNullable(Paths.get(path));
     Path idPath = new File(schema.getResScope().getPath()).toPath();
 
     if (rootPath.isEmpty()) {
