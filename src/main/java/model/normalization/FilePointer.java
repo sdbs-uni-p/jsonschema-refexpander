@@ -97,7 +97,9 @@ public class FilePointer extends Pointer {
       }
     }
 
-    convertedRef = convertedRef.replace("/", "_").replace(".", "_");
+    convertedRef = convertedRef.replace("/", "_")
+            .replace(".", "_")
+            .replace("definitions", "defs");
     return convertedRef;
   }
 

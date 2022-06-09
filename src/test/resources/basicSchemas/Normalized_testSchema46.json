@@ -1,5 +1,5 @@
 {
-  "$ref": "#/definitions/definitions_rref1_definitions_address",
+  "$ref": "#/definitions/defs_rref1_defs_address",
   "definitions": {
     "rref1": {
       "definitions": {
@@ -24,7 +24,7 @@
         }
       }
     },
-    "definitions_rref1_definitions_address": {
+    "defs_rref1_defs_address": {
       "type": "object",
       "properties": {
         "street_address": {

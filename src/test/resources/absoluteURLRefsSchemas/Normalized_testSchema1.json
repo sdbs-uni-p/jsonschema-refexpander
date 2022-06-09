@@ -2,9 +2,9 @@
   "title": "1: No recursive schema with absolut ref to online file",
   "definitions": {
     "A": {
-      "$ref": "#/definitions/https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other_json_definitions_A"
+      "$ref": "#/definitions/https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other_json_defs_A"
     },
-    "https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other_json_definitions_A": {
+    "https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other_json_defs_A": {
       "type": "string"
     }
   },

@@ -2,15 +2,15 @@
   "title": "12: No recursive schema with ref to other file in subsubFolder and then one back up",
   "definitions": {
     "A": {
-      "$ref": "#/definitions/subFolder_subFolder_other_json_definitions_B"
+      "$ref": "#/definitions/subFolder_subFolder_other_json_defs_B"
     },
     "B": {
       "type": "string"
     },
-    "subFolder_subFolder_other_json_definitions_B": {
-      "$ref": "#/definitions/subFolder_other_json_definitions_C"
+    "subFolder_subFolder_other_json_defs_B": {
+      "$ref": "#/definitions/subFolder_other_json_defs_C"
     },
-    "subFolder_other_json_definitions_C": {
+    "subFolder_other_json_defs_C": {
       "$ref": "#/definitions/B"
     }
   },

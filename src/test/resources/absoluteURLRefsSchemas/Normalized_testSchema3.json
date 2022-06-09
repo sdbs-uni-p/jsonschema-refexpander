@@ -2,13 +2,13 @@
   "title": "3: Recursive schema with ref to other file with refs",
   "definitions": {
     "A": {
-      "$ref": "#/definitions/https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other_json_definitions_D"
+      "$ref": "#/definitions/https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other_json_defs_D"
     },
-    "https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other_json_definitions_D": {
-      "$ref": "#/definitions/https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other2_json_definitions_A"
+    "https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other_json_defs_D": {
+      "$ref": "#/definitions/https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other2_json_defs_A"
     },
-    "https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other2_json_definitions_A": {
-      "$ref": "#/definitions/https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other_json_definitions_D"
+    "https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other2_json_defs_A": {
+      "$ref": "#/definitions/https:__raw_githubusercontent_com_lukasellinger_json-schema-recursion_main_src_test_resources_onlineRefs_other_json_defs_D"
     }
   },
   "$ref": "#/definitions/A"

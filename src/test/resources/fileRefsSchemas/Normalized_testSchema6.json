@@ -4,24 +4,24 @@
     "A": {
       "anyOf": [
         {
-          "$ref": "#/definitions/other3_json_definitions_B"
+          "$ref": "#/definitions/other3_json_defs_B"
         },
         {
-          "$ref": "#/definitions/other4_json_definitions_C"
+          "$ref": "#/definitions/other4_json_defs_C"
         }
       ]
     },
     "B": {
       "$ref": "#/definitions/A"
     },
-    "other3_json_definitions_B": {
-      "$ref": "#/definitions/other5_json_definitions_D"
+    "other3_json_defs_B": {
+      "$ref": "#/definitions/other5_json_defs_D"
     },
-    "other5_json_definitions_D": {
+    "other5_json_defs_D": {
       "$ref": "#/definitions/A"
     },
-    "other4_json_definitions_C": {
-      "$ref": "#/definitions/other5_json_definitions_D"
+    "other4_json_defs_C": {
+      "$ref": "#/definitions/other5_json_defs_D"
     }
   },
   "$ref": "#/definitions/A"

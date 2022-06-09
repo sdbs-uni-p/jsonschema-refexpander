@@ -11,9 +11,9 @@
           "type": "string"
         }
       },
-      "$ref": "#/definitions/other3_json_definitions_A"
+      "$ref": "#/definitions/other3_json_defs_A"
     },
-    "other3_json_definitions_A": {
+    "other3_json_defs_A": {
       "type": "string"
     }
   },

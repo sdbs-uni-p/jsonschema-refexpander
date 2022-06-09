@@ -2,19 +2,19 @@
   "title": "5: Cycle with 3 files",
   "definitions": {
     "A": {
-      "$ref": "#/definitions/other3_json_definitions_A"
+      "$ref": "#/definitions/other3_json_defs_A"
     },
     "B": {
       "$ref": "#/definitions/A"
     },
-    "other3_json_definitions_A": {
-      "$ref": "#/definitions/other4_json_definitions_A"
+    "other3_json_defs_A": {
+      "$ref": "#/definitions/other4_json_defs_A"
     },
-    "other4_json_definitions_A": {
-      "$ref": "#/definitions/other5_json_definitions_A"
+    "other4_json_defs_A": {
+      "$ref": "#/definitions/other5_json_defs_A"
     },
-    "other5_json_definitions_A": {
-      "$ref": "#/definitions/other3_json_definitions_A"
+    "other5_json_defs_A": {
+      "$ref": "#/definitions/other3_json_defs_A"
     }
   },
   "$ref": "#/definitions/A"

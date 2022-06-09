@@ -11,7 +11,7 @@
     "a_a": {
       "type": "integer"
     },
-    "definitions_a_a": {
+    "defs_a_a": {
       "type": "string"
     }
   },
@@ -20,5 +20,5 @@
       "type": "integer"
     }
   },
-  "$ref": "#/definitions/definitions_a_a"
+  "$ref": "#/definitions/defs_a_a"
 }

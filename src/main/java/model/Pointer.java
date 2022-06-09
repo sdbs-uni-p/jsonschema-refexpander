@@ -102,7 +102,9 @@ public class Pointer {
           convertedRef = "id_" + ref;
         }
       }
-      convertedRef = convertedRef.replace('/', '_').replace(".", "_");
+      convertedRef = convertedRef.replace('/', '_')
+              .replace(".", "_")
+              .replace("definitions", "defs");
       convertedRef = convertedRef.replace('#', '_');
 
       return convertedRef;

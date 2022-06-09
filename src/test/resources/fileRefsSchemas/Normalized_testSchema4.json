@@ -2,12 +2,12 @@
   "title": "4: Recursive schema with ref to other files with refs and #",
   "definitions": {
     "A": {
-      "$ref": "#/definitions/other_json_definitions_E"
+      "$ref": "#/definitions/other_json_defs_E"
     },
     "B": {
       "$ref": "#/definitions/A"
     },
-    "other_json_definitions_E": {
+    "other_json_defs_E": {
       "$ref": "#/definitions/other_json"
     },
     "other_json": {
@@ -16,30 +16,30 @@
           "type": "string"
         },
         "B": {
-          "$ref": "#/definitions/other_json_definitions_C"
+          "$ref": "#/definitions/other_json_defs_C"
         },
         "C": {
           "type": "integer"
         },
         "D": {
-          "$ref": "#/definitions/other2_json_definitions_A"
+          "$ref": "#/definitions/other2_json_defs_A"
         },
         "E": {
           "$ref": "#/definitions/other_json"
         }
       },
-      "$ref": "#/definitions/other_json_definitions_A"
+      "$ref": "#/definitions/other_json_defs_A"
     },
-    "other_json_definitions_C": {
+    "other_json_defs_C": {
       "type": "integer"
     },
-    "other2_json_definitions_A": {
-      "$ref": "#/definitions/other_json_definitions_D"
+    "other2_json_defs_A": {
+      "$ref": "#/definitions/other_json_defs_D"
     },
-    "other_json_definitions_D": {
-      "$ref": "#/definitions/other2_json_definitions_A"
+    "other_json_defs_D": {
+      "$ref": "#/definitions/other2_json_defs_A"
     },
-    "other_json_definitions_A": {
+    "other_json_defs_A": {
       "type": "string"
     }
   },

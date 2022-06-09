@@ -2,13 +2,13 @@
   "title": "3: Recursive schema with ref to other file with refs",
   "definitions": {
     "A": {
-      "$ref": "#/definitions/other_json_definitions_D"
+      "$ref": "#/definitions/other_json_defs_D"
     },
-    "other_json_definitions_D": {
-      "$ref": "#/definitions/other2_json_definitions_A"
+    "other_json_defs_D": {
+      "$ref": "#/definitions/other2_json_defs_A"
     },
-    "other2_json_definitions_A": {
-      "$ref": "#/definitions/other_json_definitions_D"
+    "other2_json_defs_A": {
+      "$ref": "#/definitions/other_json_defs_D"
     }
   },
   "$ref": "#/definitions/A"

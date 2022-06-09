@@ -2,9 +2,9 @@
   "title": "10: No recursive schema with ref to other file in subFolder",
   "definitions": {
     "A": {
-      "$ref": "#/definitions/subFolder_other_json_definitions_A"
+      "$ref": "#/definitions/subFolder_other_json_defs_A"
     },
-    "subFolder_other_json_definitions_A": {
+    "subFolder_other_json_defs_A": {
       "type": "string"
     }
   },
