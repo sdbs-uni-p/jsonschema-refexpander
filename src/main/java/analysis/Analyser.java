@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
+import java.util.Objects;
+
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.FileUtils;
 import com.google.gson.Gson;
@@ -35,7 +37,7 @@ public class Analyser {
    * <code>RecursionType</code>.
    * 
    * @param normalizedDir has to be a directory. All schemas need to be normalized.
-   * @throws IOException
+   * @throws IOException if there occurs an error regarding csv.
    */
   public void analyseRecursion(File normalizedDir) throws IOException {
     if (!normalizedDir.isDirectory()) {
@@ -45,7 +47,7 @@ public class Analyser {
     int recursive = 0;
     int unguardedRecursive = 0;
     int invalidReference = 0;
-    File[] files = normalizedDir.listFiles();
+    File[] files = Objects.requireNonNull(normalizedDir.listFiles());
     File analysisFile = new File("recursionanalysis_" + normalizedDir.getName() + ".csv");
     createAnalysisCSV(analysisFile);
 
@@ -87,11 +89,10 @@ public class Analyser {
    * Prints stats to log-file and creates csv-file (schmeaTypes_{unnormalizedDir.getName()}.csv)
    * with schema types (single-file schemas, distributed schemas). Uses cleaned schemas (all schemas
    * that could be normalized).
-   * 
-   * @param csvRecursion csv-file of recursion analysis.
+   *
    * @param unnormalizedDir directory of unnormalized schemas.
    * @param normalizedDir directory of normalized schemas.
-   * @throws IOException
+   * @throws IOException if there occurs an error regarding csv.
    */
   public void createDetailedStats(File unnormalizedDir, File normalizedDir) throws IOException {
     if (!unnormalizedDir.isDirectory() || !normalizedDir.isDirectory()) {
@@ -129,7 +130,7 @@ public class Analyser {
    * 
    * @param file needs to be valid JSON.
    * @return line count of <code>file</code>.
-   * @throws IOException
+   * @throws IOException if there occurs an error regarding csv.
    */
   public int countRowsJSON(File file) throws IOException {
     if (!file.exists()) {
@@ -149,7 +150,7 @@ public class Analyser {
    * @param unnormalizedDir directory of which schemas should be separated by their type.
    * @param normalizedDir directory of normalized schemas of schemas in
    *        <code>unnormalizedDir</code>.
-   * @throws IOException
+   * @throws IOException if there occurs an error regarding csv.
    */
   public void separateSchemasByType(File unnormalizedDir, File normalizedDir) throws IOException {
     if (!unnormalizedDir.isDirectory() || !normalizedDir.isDirectory()) {
@@ -161,7 +162,7 @@ public class Analyser {
     String[] head = {"name", "distributed"};
     CSVUtil.writeToCSV(csv, head);
 
-    for (File file : normalizedDir.listFiles()) {
+    for (File file : Objects.requireNonNull(normalizedDir.listFiles())) {
       File unnormalized = new File(unnormalizedDir, file.getName().replace("_Normalized", ""));
       Normalizer normalizer =
           new Normalizer(unnormalized, new LoadSchemaDTO.Builder()
@@ -188,7 +189,7 @@ public class Analyser {
    * @param csvSchemaTypes csv file of type (single or distributed) analysis.
    * @param unnormalizedDir directory of unnormalized schemas.
    * @param normalizedDir directory of normalized schemas.
-   * @throws IOException
+   * @throws IOException if there occurs an error regarding csv.
    */
   public void calcDetailedStats(File csvSchemaTypes, File csvRecursion, File unnormalizedDir,
       File normalizedDir) throws IOException {
@@ -243,15 +244,15 @@ public class Analyser {
       }
     }
 
-    int avgLocSingleFile = totalLocSingleFile / singleFilesCount;
-    int avgLocSingleFileNormalized = totalLoCSingleFileNormalized / singleFilesCount;
+    double avgLocSingleFile = (double) totalLocSingleFile / singleFilesCount;
+    double avgLocSingleFileNormalized = (double) totalLoCSingleFileNormalized / singleFilesCount;
 
-    int avgLoCDistributedFile = totalLocDistributedFile / distributedFilesCount;
-    int avgLocDistributedFileNormalized = totalLoCDistributedFileNormalized / distributedFilesCount;
+    double avgLoCDistributedFile = (double) totalLocDistributedFile / distributedFilesCount;
+    double avgLocDistributedFileNormalized = (double) totalLoCDistributedFileNormalized / distributedFilesCount;
 
-    int avgLoCOverall =
-        (totalLocDistributedFile + totalLocSingleFile) / (singleFilesCount + distributedFilesCount);
-    int avgLoCOverallNormalized = (totalLoCDistributedFileNormalized + totalLoCSingleFileNormalized)
+    double avgLoCOverall =
+            (double) (totalLocDistributedFile + totalLocSingleFile) / (singleFilesCount + distributedFilesCount);
+    double avgLoCOverallNormalized = (double) (totalLoCDistributedFileNormalized + totalLoCSingleFileNormalized)
         / (singleFilesCount + distributedFilesCount);
 
     double blowUpSingleFile = calcBlowUp(avgLocSingleFile, avgLocSingleFileNormalized);
@@ -277,9 +278,9 @@ public class Analyser {
     Log.info("----------------------------------");
   }
 
-  private double calcBlowUp(int base, int value) {
+  private double calcBlowUp(double base, double value) {
     assert base != 0;
 
-    return ((double) value) / base - 1;
+    return value / base - 1;
   }
 }
