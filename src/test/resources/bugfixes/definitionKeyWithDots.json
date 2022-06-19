@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "serviceReference": {
+      "$ref": "https://kubernetesjsonschema.dev/master/_definitions.json#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.ServiceReference"
+    }
+  },
+  "type": "object"
+}

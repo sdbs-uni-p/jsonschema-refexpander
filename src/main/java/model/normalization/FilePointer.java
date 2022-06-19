@@ -201,6 +201,12 @@ public class FilePointer extends Pointer {
     if (pointer.equals("#")) {
       return element;
     } else {
+      String[] levels = pointer.split("/");
+
+      if (levels.length == 3 && levels[0].equals("#") && levels[1].equals("definitions")) {
+        pointer = "#/definitions/" + levels[2].replace(".", "_").replace("definitions", "defs");
+      }
+
       String currentLevel = pointer.substring(2);
       currentLevel = currentLevel.split("/")[0];
       pointer = StringUtils.replaceOnce(pointer, "/" + currentLevel, "");

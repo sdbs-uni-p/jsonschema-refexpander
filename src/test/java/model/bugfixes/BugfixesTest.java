@@ -1,9 +1,11 @@
 package model.bugfixes;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+
+import com.google.gson.JsonParser;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,9 @@ import exception.InvalidFragmentException;
 import model.normalization.Normalizer;
 import model.normalization.RepositoryType;
 import util.FileLoader;
+import util.SchemaUtil;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BugfixesTest {
 
@@ -148,6 +153,33 @@ public class BugfixesTest {
     JsonObject normalized = FileLoader.loadSchema(BUGFIX_DIR + "/Normalized_" + fileName);
     Normalizer normalizer = new Normalizer(new File(BUGFIX_DIR, fileName), config);
     assertEquals(normalized, normalizer.normalize());
+  }
+
+  @Test
+  void definitionKeyWithDots() throws IOException {
+    final String fileName = "definitionKeyWithDots.json";
+    JsonObject normalized = FileLoader.loadSchema(BUGFIX_DIR + "/Normalized_" + fileName);
+    Normalizer normalizer = new Normalizer(new File(BUGFIX_DIR, fileName), config);
+    assertEquals(normalized, normalizer.normalize());
+    definitionKeysDoNotContainSlashesDotsOrStringDefinitions();
+  }
+
+  /**
+   * Properties in {@code #/definitions} for all files in schema store
+   * should not contain slashes, dots or the string "definitions".
+   */
+  private void definitionKeysDoNotContainSlashesDotsOrStringDefinitions() throws IOException {
+    File store = new File("Store");
+    for (File schema : Objects.requireNonNull(store.listFiles())) {
+      String jsonStr = FileUtils.readFileToString(schema, StandardCharsets.UTF_8);
+      JsonObject jsonObj = JsonParser.parseString(jsonStr).getAsJsonObject();
+      JsonObject defs = SchemaUtil.getDefinitions(jsonObj);
+      for (String key : defs.keySet()) {
+        assertFalse(key.contains("/"));
+        assertFalse(key.contains("."));
+        assertFalse(key.contains("definitions"));
+      }
+    }
   }
   
   @AfterAll
