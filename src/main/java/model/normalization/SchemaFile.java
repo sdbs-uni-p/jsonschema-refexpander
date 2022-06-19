@@ -11,12 +11,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
+
+import com.google.gson.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import dto.LoadSchemaDTO;
 import exception.InvalidIdentifierException;
 import exception.StoreException;
@@ -100,6 +98,7 @@ public class SchemaFile {
       try {
         if (location.getScheme().equals("file")) {
           object = gson.fromJson(URLLoader.loadWithRedirect(location.toURL()), JsonObject.class);
+          object = convertPointersAndDefinitions(object).getAsJsonObject();
         } else {
           object = Store.getSchema(location); 
         }
@@ -107,6 +106,7 @@ public class SchemaFile {
         
         if (store.isFetchSchemasOnline()) {
           object = gson.fromJson(URLLoader.loadWithRedirect(location.toURL()), JsonObject.class);
+          object = convertPointersAndDefinitions(object).getAsJsonObject();
 
           if (!location.getScheme().equals("file")) {
             Store.storeSchema(object, location);
@@ -121,12 +121,14 @@ public class SchemaFile {
           File file = new File(
               location.toString().replace("http://localhost:1234/", TESTSUITE_REMOTES_DIR));
           object = gson.fromJson(FileUtils.readFileToString(file, "UTF-8"), JsonObject.class);
+          object = convertPointersAndDefinitions(object).getAsJsonObject();
         } else if (store.getRepType().equals(RepositoryType.CORPUS)) {
           try {
             URI locationRaw = new URI(location.getScheme(), location.getAuthority(),
                 location.getPath(), "raw=true", location.getFragment());
             object =
                 gson.fromJson(URLLoader.loadWithRedirect(locationRaw.toURL()), JsonObject.class);
+            object = convertPointersAndDefinitions(object).getAsJsonObject();
 
             if (!location.getScheme().equals("file")) {
               Store.storeSchema(object, location);
@@ -143,6 +145,58 @@ public class SchemaFile {
         throw new InvalidIdentifierException("At " + location + " is no valid JsonObject");
       }
     }
+  }
+
+  private JsonElement convertPointersAndDefinitions(JsonElement json) {
+    if (json.isJsonArray()) {
+      JsonArray array = new JsonArray();
+
+      for (JsonElement elem : json.getAsJsonArray()) {
+        array.add(convertPointersAndDefinitions(elem));
+      }
+
+      return array;
+    }
+
+    if (json.isJsonObject()) {
+      JsonObject object = new JsonObject();
+      JsonObject obj = json.getAsJsonObject();
+
+      for (String key : obj.keySet()) {
+        if (key.equals("definitions")) {
+          JsonObject defs = obj.get("definitions").getAsJsonObject();
+          JsonObject newDefs = new JsonObject();
+
+          for (String defKey : defs.keySet()) {
+            String newKey = defKey.replace("/", "_").replace(".", "_").replace("definitions", "defs");
+            newDefs.add(newKey, convertPointersAndDefinitions(defs.get(defKey)));
+          }
+
+          object.add("definitions", newDefs);
+        } else if (key.equals("$ref")) {
+          String value;
+          try {
+            value = obj.get(key).getAsString();
+
+            if (value.contains("#/definitions/")) {
+              String[] parts = value.split("#/definitions/");
+              String suffix = parts[1].replace(".", "_").replace("definitions", "defs");
+              value = parts[0] + "#/definitions/" + suffix;
+            }
+
+            object.addProperty(key, value);
+          } catch (UnsupportedOperationException e) {
+            object.add(key, convertPointersAndDefinitions(obj.get(key)));
+          }
+        } else {
+          object.add(key, convertPointersAndDefinitions(obj.get(key)));
+        }
+      }
+
+      return object;
+    }
+
+    return json;
   }
 
   /**
