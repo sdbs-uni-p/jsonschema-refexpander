@@ -359,7 +359,7 @@ public class SchemaUtil {
    * @throws IOException
    */
   public static void writeJsonToFile(JsonElement element, File file) throws IOException {
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
     FileUtils.writeStringToFile(file, gson.toJson(element), "UTF-8");
   }
 
