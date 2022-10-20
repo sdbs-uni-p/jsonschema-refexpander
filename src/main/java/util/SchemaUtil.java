@@ -359,8 +359,22 @@ public class SchemaUtil {
    * @throws IOException
    */
   public static void writeJsonToFile(JsonElement element, File file) throws IOException {
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    FileUtils.writeStringToFile(file, gson.toJson(element), "UTF-8");
+    Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+    FileUtils.writeStringToFile(file, fixEncoding(gson.toJson(element)), "UTF-8");
+  }
+
+  private static String fixEncoding(String json) {
+    StringBuilder sb = new StringBuilder();
+
+    for (char c : json.toCharArray()) {
+      if ("\u00a9\u2018\u2019\u201c\u201d".indexOf(c) >= 0) {
+        sb.append("\\u").append(Integer.toHexString(0x10000 | c).substring(1));
+      } else {
+        sb.append(c);
+      }
+    }
+
+    return sb.toString();
   }
 
   /**
