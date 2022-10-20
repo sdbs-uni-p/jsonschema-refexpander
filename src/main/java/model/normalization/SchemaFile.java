@@ -168,7 +168,7 @@ public class SchemaFile {
           JsonObject newDefs = new JsonObject();
 
           for (String defKey : defs.keySet()) {
-            String newKey = defKey.replace("/", "_").replace(".", "_").replace("definitions", "defs");
+            String newKey = defKey.replace(".", "_").replace("definitions", "defs");
             newDefs.add(newKey, convertPointersAndDefinitions(defs.get(defKey)));
           }
 

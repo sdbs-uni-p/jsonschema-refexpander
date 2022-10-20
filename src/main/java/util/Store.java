@@ -109,7 +109,7 @@ public class Store {
 
             if (value.startsWith("#/definitions/")) {
               String suffix = value.substring("#/definitions/".length());
-              suffix = suffix.replace("/", "_").replace(".", "_").replace("definitions", "defs");
+              suffix = suffix.replace(".", "_").replace("definitions", "defs");
               value = "#/definitions/" + suffix;
             }
 
