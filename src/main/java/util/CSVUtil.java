@@ -20,18 +20,18 @@ import org.apache.commons.csv.CSVRecord;
 public class CSVUtil {
   
   /**
-   * Appends <code>collumns</code> to <code>csv</code>. If file does not exist yet, it is created.
+   * Appends <code>columns</code> to <code>csv</code>. If file does not exist yet, it is created.
    * 
    * @param csv file to write to.
-   * @param collumns to be added.
+   * @param columns to be added.
    * @throws IOException if it cannot be written to <code>csv</code> file.
    */
-  public static void writeToCSV(File csv, String[] collumns) throws IOException {    
+  public static void writeToCSV(File csv, String[] columns) throws IOException {
     try (
         BufferedWriter writer = Files.newBufferedWriter(csv.toPath(),
             StandardOpenOption.APPEND, StandardOpenOption.CREATE);
-        CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT);) {
-      csvPrinter.printRecord(collumns);
+        CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
+      csvPrinter.printRecord(columns);
       csvPrinter.flush();
     }
   }

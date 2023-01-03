@@ -2,12 +2,18 @@ package main;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import analysis.Analyser;
 import analysis.DirNormalizer;
 import analysis.SchemaCorpus;
 import analysis.TestSuite;
 import dto.LoadSchemaDTO;
 import model.normalization.RepositoryType;
+import org.apache.commons.csv.CSVRecord;
+import util.CSVUtil;
 
 /**
  * 
@@ -41,9 +47,12 @@ public class Main {
         case "-normalize":
           boolean allowDistributedSchemas = Boolean.parseBoolean(args[2].substring(1));
           boolean fetchSchemasOnline = Boolean.parseBoolean(args[3].substring(1));
+          int l = args[1].equals("-corpus") ? 7 : 6;
+          Map<String, String> linksToPermalinks = args.length < l ? null : extractLinksToPermalinks(new File(args[l - 1]));
           LoadSchemaDTO config = new LoadSchemaDTO.Builder()
               .allowDistributedSchemas(allowDistributedSchemas)
               .fetchSchemasOnline(fetchSchemasOnline)
+              .addLinksToPermalinks(linksToPermalinks)
               .build();
           switch (args[1]) {
             case "-corpus":
@@ -77,5 +86,16 @@ public class Main {
           throw new IllegalArgumentException("Unexpected value: " + args[0]);
       } 
     }
+  }
+
+  private static Map<String, String> extractLinksToPermalinks(File file) throws IOException {
+    Map<String, String> linksToPermalinks = new HashMap<>();
+    List<CSVRecord> records = CSVUtil.loadCSV(file, ',', false);
+
+    for (CSVRecord record : records) {
+      linksToPermalinks.put(record.get(0), record.get(1));
+    }
+
+    return linksToPermalinks;
   }
 }

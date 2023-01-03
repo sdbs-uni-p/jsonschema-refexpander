@@ -23,6 +23,7 @@ To normalize your schemas some additional parameters are needed:</br>
 `java -jar jarfile -normalize -repositorytype -allowDistributedSchemas -fetchSchemasOnline "pathToDir"`<br/><br/> 
 If `corpus` was chosen for the `repositorytype` an additional parameter with the path to the file repos_fullpath.csv (`pathToReposFullpath`) is needed.<br/>  
 `java -jar jarfile -normalize -corpus -allowDistributedSchemas -fetchSchemasOnline "pathToDir" "pathToReposFullpath"`<br/><br/>    
+  - `"linksToPermalinks"` should be the path to a CSV file where a link prefix maps to a permalink prefix such that all web references in a schema are loaded using the permalink instead the original one. This parameter is optional and can be omitted if no permalink should be specified.
 - Recursion checking:<br/>
 See [here](#recursion-checking) for an explanation.<br/>
 Again `pathToDir` should be the path to the directory in which the schemas are stored.<br/>
@@ -128,4 +129,4 @@ Another is that in Draft06 and above unknown keywords should be explicitly ignor
 Keep in mind that schemas using higher drafts are still normalized using Draft04 specific keywords.
 
 ## License
-This work is licensed under the [Apache 2.0 License](./LICENSE.txt).
+This work is licensed under the [Apache 2.0 License](./LICENSE).

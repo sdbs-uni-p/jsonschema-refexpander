@@ -93,7 +93,7 @@ public class SchemaFile {
 
   private void loadJsonObject(URI location) {
     Gson gson = new Gson();
-    
+
     try {
       try {
         if (location.getScheme().equals("file")) {
@@ -103,8 +103,19 @@ public class SchemaFile {
           object = Store.getSchema(location); 
         }
       } catch (StoreException e) {
-        
+
         if (store.isFetchSchemasOnline()) {
+          try {
+            if (location.getScheme().matches("https?") && store.hasPermalink(location)) {
+              String scheme = location.getScheme();
+              String authority = location.getAuthority();
+              location = new URI(scheme, authority, store.getPermalink(location).substring(scheme.length() + 3 + authority.length()),
+                      location.getQuery(), location.getFragment());
+            }
+          } catch (URISyntaxException ex) {
+            throw new InvalidIdentifierException(location + " is no valid URI");
+          }
+
           object = gson.fromJson(URLLoader.loadWithRedirect(location.toURL()), JsonObject.class);
           object = convertPointersAndDefinitions(object).getAsJsonObject();
 

@@ -44,6 +44,18 @@ public class SchemaStore {
     return config.isFetchSchemasOnline();
   }
 
+  public boolean hasPermalink(URI uri) {
+    if (!config.hasLinksToPermalinks()) {
+      return false;
+    }
+
+    return config.hasPermalink(uri.toString());
+  }
+
+  public String getPermalink(URI uri) {
+    return config.getPermalink(uri.toString());
+  }
+
   public URI getRoot() {
     return root;
   }
