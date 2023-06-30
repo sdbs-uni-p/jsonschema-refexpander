@@ -1,6 +1,6 @@
 # Replication package for the normalization and recursion analysis of JSON schemas from the
 # TestSuite, SchemaStore and SchemaCorpus.
-FROM ubuntu:21.04
+FROM ubuntu:22.04
 
 MAINTAINER Lukas Ellinger "elling09@ads.uni-passau.de"
 
@@ -14,7 +14,7 @@ RUN apt install -y --no-install-recommends \
     ca-certificates \
   	git \
     sudo \
-    openjdk-16-jre-headless \
+    openjdk-18-jre \
     maven
 
 # Obtain schemas from the TestSuite to be normalized.
